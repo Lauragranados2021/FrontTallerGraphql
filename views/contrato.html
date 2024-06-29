@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <title>Contrato</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      style="background-color: hsl(231, 81%, 34%) !important"
+    >
+      <div class="container-fluid">
+        <a
+          class="navbar-brand"
+          href="/"
+          style="
+            color: white;
+            font-family: Helvetica;
+            font-size: larger;
+            font-weight: 500;
+          "
+          >Home</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="/oficinas"
+                style="
+                  color: white;
+                  font-family: Helvetica;
+                  font-size: larger;
+                  font-weight: 500;
+                "
+                >Oficinas</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="/contrato"
+                style="
+                  color: white;
+                  font-family: Helvetica;
+                  font-size: larger;
+                  font-weight: 500;
+                "
+                >Contratos</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="input-group pt-3 d-flex align-items-center">
+        <span
+          class="input-group-text"
+          id="basic-addon1"
+          style="
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            max-height: 3rem;
+          "
+          >Id Contrato</span
+        >
+        <select
+          class="form-select"
+          id="select-id"
+          onchange="findById()"
+          style="
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            max-height: 3rem;
+          "
+        >
+          <option value="Seleccione un ID de oficina">Seleccione un ID</option>
+        </select>
+      </div>
+      <div class="table-responsive pt-3">
+        <table class="table table-striped">
+          <thead class="table">
+            <tr>
+              <th>Id</th>
+              <th>Fecha Inicio</th>
+              <th>Fecha Fin</th>
+              <th>Precio</th>
+              <th>Oficina</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="container 'component-margin'">
+      <h2 class="text-center mb-3" font-family="Helvetica" style="color: #333">
+        Agregar Contrato
+      </h2>
+      <!-- Título para el componente de editar -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">code</span>
+        <input type="number" class="form-control" id="code" />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon2">Fecha inicio</span>
+        <input type="date" class="form-control" id="inicio" />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Fecha Fin</span>
+        <input type="date" class="form-control" id="fin" />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Precio</span>
+        <input type="integer" class="form-control" id="precio" />
+      </div>
+
+      <div class="input-group mb-3">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          id="selectOficinaUpdate"
+        >
+          <option selected>Selecciona la oficina</option>
+        </select>
+      </div>
+      <div style="text-align: right">
+        <button type="button" class="btn btn-success" onclick="add()">
+          Success
+        </button>
+      </div>
+    </div>
+    <div class="container 'component-margin'">
+      <h2 class="text-center mb-3" font-family="Helvetica" style="color: #333">
+        Editar Contrato
+      </h2>
+      <!-- Título para el componente de editar -->
+      <div class="input-group mb-3">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          id="selectEditar"
+          onchange="editing()"
+        >
+          <option selected>Selecciona el contrato a editar</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">code</span>
+        <input type="number" class="form-control" id="updatecode" />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon2">Fecha Inicio</span>
+        <input type="datetime-local" class="form-control" id="updateinicio" />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Fecha Fin</span>
+        <input type="datetime-local" class="form-control" id="updatefin" />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Precio</span>
+        <input type="number" class="form-control" id="updateprecio" />
+      </div>
+      <div class="input-group mb-3">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          id="selectOficina"
+        >
+          <option selected>Selecciona la oficina</option>
+        </select>
+      </div>
+      <div style="text-align: right">
+        <button type="button" class="btn btn-warning" onclick="edit()">
+          Editar
+        </button>
+      </div>
+    </div>
+  </body>
+
+  <footer
+    class="footer bg-dark text-white"
+    style="
+      background-color: hsl(231, 81%, 34%) !important;
+      color: #ffffff;
+      font-size: 18px;
+      font-family: Helvetica;
+      font-weight: 500;
+      height: 79px;
+    "
+  >
+    <div class="container 'component-margin'">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-md-4">
+          <p class="mb-0">Laura Nicol Granados Bayona</p>
+        </div>
+        <div class="col-md-4">
+          <p class="mb-0">Electiva II - Desarrollo Web</p>
+        </div>
+        <div class="col-md-2">
+          <p class="mb-0">Proyecto primer Cincuenta</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="js/script-dashboard.contrato.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</html>
